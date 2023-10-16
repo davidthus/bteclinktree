@@ -28,6 +28,7 @@
   async function confirmUsername() {
     console.log('Confirming username', username)
 
+    username = username.toLowerCase()
     const batch = writeBatch(db)
     batch.set(doc(db, 'usernames', username), { uid: $user?.uid })
     batch.set(doc(db, 'users', $user!.uid), {
