@@ -7,15 +7,17 @@ import {
 } from '$env/static/private'
 
 import admin from 'firebase-admin'
-import { getAuth } from 'firebase/auth'
-import { getFirestore } from 'firebase/firestore'
+import { getAuth } from 'firebase-admin/auth'
+import { getFirestore } from 'firebase-admin/firestore'
+
+const privateKey = JSON.parse(FB_PRIVATE_KEY)
 
 try {
   admin.initializeApp({
     credential: admin.credential.cert({
       projectId: FB_PROJECT_ID,
       clientEmail: FB_CLIENT_EMAIL,
-      privateKey: FB_PRIVATE_KEY
+      privateKey
     })
   })
 } catch (err: any) {
