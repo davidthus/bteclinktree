@@ -1,24 +1,22 @@
-import { adminAuth, adminDB } from '$lib/server/admin'
-import { error } from '@sveltejs/kit'
+import { adminDB } from '$lib/server/admin'
+import { error, redirect } from '@sveltejs/kit'
 import type { PageServerLoad } from './$types'
 
-export const load = (async ({ cookies }) => {
-  const sessionCookie = cookies.get('__session')
+export const load = (async ({ locals, params }) => {
+  const uid = locals.userID
 
-  try {
-    const decodedClaims = await adminAuth.verifySessionCookie(sessionCookie!)
-    const userDoc = await adminDB
-      .collection('users')
-      .doc(decodedClaims.uid)
-      .get()
-    const userData = userDoc.data()
+  if (!uid) {
+    throw redirect(301, '/login')
+  }
 
-    return {
-      bio: userData?.bio
-    }
-  } catch (e) {
-    console.log(e)
-    // redirect(301, '/login');
-    throw error(401, 'Unauthorized request!')
+  const userDoc = await adminDB.collection('users').doc(uid).get()
+  const { username, bio } = userDoc.data()
+
+  if (username !== params.username) {
+    throw error(401, 'This aint your profile bud')
+  }
+
+  return {
+    bio
   }
 }) satisfies PageServerLoad
