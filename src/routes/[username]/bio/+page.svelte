@@ -6,11 +6,11 @@
   export let data: PageData
 </script>
 
-<main class="max-w-lg prose text-center mx-auto my-6" use:enhance>
+<main class="max-w-lg prose text-center mx-auto my-6">
   <p>Current Bio: <span class="text-info">{data.bio}</span></p>
   <p>Status Code: {$page.status}</p>
   <p class="text-error">{$page.form.problem ?? ''}</p>
-  <form action="" method="post">
+  <form action="" method="post" use:enhance>
     <div class="form-control">
       <label for="bio" class="label">
         <span class="label-text">Your bio</span>
