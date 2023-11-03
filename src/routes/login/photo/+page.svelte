@@ -48,4 +48,7 @@
       {/if}
     </div>
   </form>
+  <a href={`/${$userData && $userData.username}`}
+    ><button>Go to home page</button></a
+  >
 </AuthCheck>

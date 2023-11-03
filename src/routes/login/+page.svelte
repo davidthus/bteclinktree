@@ -29,6 +29,7 @@
   <p class="text-center text-success">You are logged in</p>
   <button class="btn btn-warning" on:click={() => signOutSSR()}>Sign out</button
   >
+  <a href="/login/username">Continue</a>
 {:else}
   <button class="btn btn-primary" on:click={signInWithGoogle}
     >Sign in with Google</button

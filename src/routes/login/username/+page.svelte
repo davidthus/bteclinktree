@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { goto } from '$app/navigation'
   import AuthCheck from '$lib/components/AuthCheck.svelte'
   import { db, user } from '$lib/firebase'
   import { doc, getDoc, writeBatch } from 'firebase/firestore'
@@ -49,6 +50,7 @@
 
     username = ''
     isAvailable = false
+    goto('/login/photo')
   }
 
   const re = /^(?=[a-zA-Z0-9._]{3,16}$)(?!.*[_.]{2})[^_.].*[^_.]$/
